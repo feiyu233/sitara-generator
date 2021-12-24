@@ -1,0 +1,46 @@
+package ${basePackagePath}.${moduleName}.entity;
+
+import javax.persistence.*;
+
+#if(${hasBigDecimal})
+import java.math.BigDecimal;
+#end
+import java.io.Serializable;
+import java.util.Date;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.ToString;
+import tk.mybatis.mapper.annotation.KeySql;
+import ${basePackagePath}.${commonModuleName}.entity.BaseEntity;
+import ${basePackagePath}.${commonModuleName}.util.UUIDGenerator;
+
+
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Data
+@ToString
+@Table(name = "${tableName}")
+@ApiModel(value = "${comments}对象",description = "${comments}")
+public class ${className}Entity extends BaseEntity implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+#foreach ($column in $columns)
+	/**
+	 * $column.comments
+	 */
+	#if($column.columnName == $pk.columnName)
+@Id
+	@KeySql(genId = UUIDGenerator.class)
+	#end
+@Column(name = "$column.attrName")
+	@ApiModelProperty(value = "$column.comments",name = "$column.attrname")
+	private $column.attrType $column.attrname;
+#end
+
+}

@@ -1,0 +1,40 @@
+package ${basePackagePath}.${moduleName}.service;
+
+import ${basePackagePath}.${commonModuleName}.service.CommonService;
+import ${basePackagePath}.${moduleName}.entity.${className}Entity;
+import ${basePackagePath}.${moduleName}.model.${className}Input;
+
+import java.util.Map;
+import java.util.List;
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${className}Service extends CommonService<${className}Entity, ${pk.attrType}>{
+
+    /**
+    * 根据id查询
+    * @return
+    */
+    ${className}Entity find${className}ById(${pk.attrType} ${pk.attrname}, ${pk.attrType} state);
+
+    /**
+    *保存
+    * @param input
+    */
+    void save${className}(${className}Input input);
+
+    /**
+    * 修改
+    */
+    void updateById(${className}Input ${classname});
+
+    /**
+    * 删除
+    */
+    void removeByIds(List<${pk.attrType}> ${pk.attrname}s);
+}
+

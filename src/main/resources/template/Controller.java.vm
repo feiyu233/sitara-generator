@@ -1,0 +1,109 @@
+package ${basePackagePath}.${moduleName}.controller;
+
+import java.util.Arrays;
+import java.util.Map;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import ${basePackagePath}.${moduleName}.entity.${className}Entity;
+import ${basePackagePath}.${moduleName}.model.${className}Input;
+import ${basePackagePath}.${moduleName}.service.${className}Service;
+import ${basePackagePath}.${commonModuleName}.vo.PageResult;
+import ${basePackagePath}.${commonModuleName}.vo.ResponseResult;
+
+
+import java.util.List;
+
+/**
+ * ${comments}管理接口
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Api(tags = "${comments}管理")
+@RestController
+@RequestMapping("/${moduleName}")
+public class ${className}Controller {
+    private final ${className}Service ${classname}Service;
+
+    public ${className}Controller(${className}Service ${classname}Service) {
+        this.${classname}Service = ${classname}Service;
+    }
+
+    /**
+     * 查询所有
+     */
+    @ApiOperation(value = "获取所有实体")
+    @GetMapping(value = "/Get${className}s", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseResult<List<${className}Entity>> list(){
+        List<${className}Entity> ${className}Entities = ${classname}Service.queryAll();
+        return ResponseResult.success(${className}Entities);
+    }
+
+    /**
+     * 条件分页查询
+     */
+    @ApiOperation(value = "条件分页查询")
+    @GetMapping("/")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageIndex", value = "请求页数", required = true, dataType = "int", defaultValue = "1"),
+            @ApiImplicitParam(name = "pageSize", value = "每页显示条数", required = true, dataType = "int", defaultValue = "20")
+    })
+    public ResponseResult<PageResult<${className}Entity>> pageQuery(@RequestParam Integer pageIndex, @RequestParam Integer pageSize){
+        PageResult<${className}Entity> pageResult = ${classname}Service.queryPageListByWhere(new ${className}Entity(), pageIndex, pageSize);
+        return ResponseResult.success(pageResult);
+    }
+
+
+    /**
+     * 获取${comments}详情
+     */
+    @ApiOperation(value = "根据id获取${comments}详情")
+    @GetMapping("/Get/${className}/Detail")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "${pk.attrname}", value = "ID", dataType = "${pk.attrType}"),
+            @ApiImplicitParam(name = "state", value = "值", dataType = "${pk.attrType}")
+    })
+    public ResponseResult<${className}Entity> get${className}Detail(@RequestParam(required = false) ${pk.attrType} ${pk.attrname},@RequestParam(required = false) ${pk.attrType} state){
+		${className}Entity ${classname} = ${classname}Service.find${className}ById(${pk.attrname},state);
+
+        return ResponseResult.success(${classname});
+    }
+
+    /**
+     * 保存
+     */
+    @ApiOperation(value = "")
+    @PostMapping("/Create${className}")
+    public ResponseResult save(@RequestBody ${className}Input input){
+		${classname}Service.save${className}(input);
+
+        return ResponseResult.success();
+    }
+
+    /**
+     * 修改
+     */
+    @RequestMapping("/update")
+    public ResponseResult update(@RequestBody ${className}Input ${classname}){
+		${classname}Service.updateById(${classname});
+
+        return ResponseResult.success();
+    }
+
+    /**
+     * 删除
+     */
+    @RequestMapping("/delete")
+    public ResponseResult delete(@RequestBody ${pk.attrType}[] ${pk.attrname}s){
+		${classname}Service.removeByIds(Arrays.asList(${pk.attrname}s));
+
+        return ResponseResult.success();
+    }
+
+}

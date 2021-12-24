@@ -1,0 +1,74 @@
+package ${basePackagePath}.${moduleName}.service.impl;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ${basePackagePath}.${commonModuleName}.service.impl.CommonServiceImpl;
+import ${basePackagePath}.${moduleName}.entity.${className}Entity;
+import ${basePackagePath}.${moduleName}.service.${className}Service;
+import ${basePackagePath}.${moduleName}.mapper.${className}Mapper;
+import ${basePackagePath}.${moduleName}.model.${className}Input;
+
+import java.util.List;
+import java.util.Map;
+
+@Slf4j
+@Service("${classname}Service")
+public class ${className}ServiceImpl extends CommonServiceImpl<${className}Entity, ${pk.attrType}> implements ${className}Service {
+
+    private final ${className}Mapper ${classname}Mapper;
+
+    public ${className}ServiceImpl(${className}Mapper ${classname}Mapper){
+        this.${classname}Mapper = ${classname}Mapper;
+    }
+
+    @Autowired
+    public void setBaseMapper(){
+        super.setBaseMapper(${classname}Mapper);
+    }
+
+##    @Override
+##    public Pagination queryPage(Map<String, Object> params) {
+##        IPage<${className}Entity> page = this.page(
+##                new Query<${className}Entity>().getPage(params),
+##                new QueryWrapper<${className}Entity>()
+##        );
+##
+##        return new Pagination(page);
+##    }
+    /**
+    * 根据id查询
+    * @return
+    */
+    @Override
+    public ${className}Entity find${className}ById(${pk.attrType} ${pk.attrname}, ${pk.attrType} state){
+        ${className}Entity ${classname}entity = queryByPrimaryKey(${pk.attrname});
+
+        return ${classname}entity;
+    }
+
+    /**
+    * 保存
+    * @param input
+    */
+    @Override
+    public void save${className}(${className}Input input){
+
+    }
+
+    /**
+    * 修改
+    */
+    public void updateById(${className}Input ${classname}){
+
+    }
+
+    /**
+    * 删除
+    */
+    public void removeByIds(List<${pk.attrType}> ${pk.attrname}s){
+
+    }
+
+}

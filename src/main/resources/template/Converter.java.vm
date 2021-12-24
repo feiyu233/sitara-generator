@@ -1,0 +1,32 @@
+package ${basePackagePath}.${moduleName}.mapper;
+
+import ${basePackagePath}.${moduleName}.entity.${className}Entity;
+import ${basePackagePath}.${moduleName}.model.${className}Input;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
+
+/**
+ * ${comments}模型实体转换类
+ *
+ * @author ${author}
+ * @date: ${datetime}
+ */
+@Mapper
+public interface ${className}Converter {
+        ${className}Converter instance = Mappers.getMapper(${className}Converter.class);
+
+        /**
+        * model2entity
+        * @param model
+        * @return
+        */
+        ${className}Entity model2entity(${className}Input model);
+
+        /**
+        * entity2model
+        * @param entity
+        * @return
+        */
+        ${className}Input entity2model(${className}Entity entity);
+
+}
