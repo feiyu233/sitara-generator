@@ -1,0 +1,47 @@
+server:
+  port: 80
+
+#database
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    #Mysql配置
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/design?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: dev
+    password: dev1234
+    #oracle配置
+    #driver-class-name: oracle.jdbc.OracleDriver
+    #url: jdbc:oracle:thin:@47.100.206.162:1521:xe
+    #username: dev
+    #password: dev1234
+    #SQLServer配置
+    #driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    #url: jdbc:sqlserver://192.168.10.10:1433;DatabaseName=renren_fast
+    #username: sa
+    #password: 123456
+    #PostgreSQL配置
+    #driverClassName: org.postgresql.Driver
+    #url: jdbc:postgresql://192.168.10.10:5432/renren_fast
+    #username: postgres
+    # password: 123456
+
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  web:
+    resources:
+      static-locations: classpath:/static/,classpath:/views/
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+
+#PageHelper分页配置
+pagehelper:
+  reasonable: true
+  support-methods-arguments: true
+  params: count=cpuntSql
+
+#指定数据库，可选值【Mysql、Oracle、SQLServer、PostgreSQl、Mongodb】
+feiyu:
+  database: mysql
